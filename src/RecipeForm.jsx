@@ -2,13 +2,15 @@ import React from "react";
 import styled from "@emotion/styled";
 import { FieldSet } from "./FieldSet.jsx";
 import { Field } from "./Field.jsx";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { NumberInput } from "./NumberInput.jsx";
 
 export const RecipeForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
 
   const submitForm = (formData) => {
@@ -40,15 +42,23 @@ export const RecipeForm = () => {
             />
           </Field>
           <Field label="Servings" error={errors.amount}>
-            <Input
-              {...register("amount", {
-                max: {
-                  value: 10,
-                  message: "Maximum number of servings is 10",
-                },
-              })}
-              type="number"
-              id="amount"
+            <Controller
+              name="amount"
+              control={control}
+              defaultValue={1}
+              render={({ field: { ref, ...field } }) => (
+                <NumberInput
+                  {...field}
+                  type="number"
+                  id="amount"
+                  rules={{
+                    max: {
+                      value: 10,
+                      message: "Maximum number of servings is 10",
+                    },
+                  }}
+                />
+              )}
             />
           </Field>
         </FieldSet>
@@ -68,7 +78,6 @@ const Container = styled.div`
 `;
 
 const Input = styled.input`
-  box-sizing: border-box;
   padding: 10px;
   width: 100%;
   border: 1px solid #d9d9d9;
@@ -76,7 +85,6 @@ const Input = styled.input`
 `;
 
 const TextArea = styled.textarea`
-  box-sizing: border-box;
   padding: 4px 11px;
   width: 100%;
   border: 1px solid #d9d9d9;
