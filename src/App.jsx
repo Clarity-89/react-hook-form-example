@@ -1,7 +1,8 @@
-import { RecipeForm } from "./RecipeForm.jsx";
 import styled from "@emotion/styled";
+import { RecipeForm } from "./RecipeForm.jsx";
 import "./App.css";
-function App() {
+
+export default function App() {
   return (
     <Container>
       <RecipeForm />
@@ -14,4 +15,3 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
 `;
-export default App;

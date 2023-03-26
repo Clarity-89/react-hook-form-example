@@ -1,8 +1,7 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { FieldSet } from "./FieldSet.jsx";
 import { Field } from "./Field.jsx";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { NumberInput } from "./NumberInput.jsx";
 
 export const RecipeForm = () => {
@@ -12,6 +11,10 @@ export const RecipeForm = () => {
     formState: { errors },
     control,
   } = useForm();
+  const { fields, append, remove } = useFieldArray({
+    name: "ingredients",
+    control,
+  });
 
   const submitForm = (formData) => {
     console.log(formData);
@@ -62,7 +65,38 @@ export const RecipeForm = () => {
             />
           </Field>
         </FieldSet>
-
+        <FieldSet label="Ingredients">
+          {fields.map((field, index) => {
+            return (
+              <Row key={field.id}>
+                <Field label="Name">
+                  <Input
+                    type="text"
+                    {...register(`ingredients[${index}].name`)}
+                    id={`ingredients[${index}].name`}
+                  />
+                </Field>
+                <Field label="Amount">
+                  <Input
+                    type="text"
+                    {...register(`ingredients[${index}].amount`)}
+                    defaultValue={field.amount}
+                    id={`ingredients[${index}].amount`}
+                  />
+                </Field>
+                <Button type="button" onClick={() => remove(index)}>
+                  &#8722;
+                </Button>
+              </Row>
+            );
+          })}
+          <Button
+            type="button"
+            onClick={() => append({ name: "", amount: "" })}
+          >
+            Add ingredient
+          </Button>
+        </FieldSet>
         <Field>
           <Button variant="primary">Save</Button>
         </Field>
@@ -92,10 +126,28 @@ const TextArea = styled.textarea`
 `;
 
 const Button = styled.button`
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0.6em 1.2em;
   border: 1px solid #d9d9d9;
   border-radius: 6px;
   margin-right: auto;
   background-color: ${({ variant }) =>
     variant === "primary" ? "#3b82f6" : "white"};
   color: ${({ variant }) => (variant === "primary" ? "white" : "#213547")};
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  & > * {
+    margin-right: 20px;
+  }
+
+  button {
+    margin: 25px 0 0 8px;
+  }
 `;
