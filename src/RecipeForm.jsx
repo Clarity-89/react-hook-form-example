@@ -2,21 +2,28 @@ import React from "react";
 import styled from "@emotion/styled";
 import { FieldSet } from "./FieldSet.jsx";
 import { Field } from "./Field.jsx";
+import { useForm } from "react-hook-form";
 
 export const RecipeForm = () => {
+  const { register, handleSubmit } = useForm();
+
+  const submitForm = (formData) => {
+    console.log(formData);
+  };
+
   return (
     <Container>
       <h1>New recipe</h1>
-      <form>
+      <form onSubmit={handleSubmit(submitForm)}>
         <FieldSet label="Basics">
-          <Field label={"Name"}>
-            <Input type="text" name="name" id="name" />
+          <Field label="Name">
+            <Input {...register("name")} type="text" id="name" />
           </Field>
-          <Field label={"Description"}>
-            <TextArea name="description" id="description" rows={10} />
+          <Field label="Description">
+            <TextArea {...register("description")} id="description" rows={10} />
           </Field>
-          <Field label={"Servings"}>
-            <Input type="number" name="amount" id="amount" />
+          <Field label="Servings">
+            <Input {...register("amount")} type="number" id="amount" />
           </Field>
         </FieldSet>
 
