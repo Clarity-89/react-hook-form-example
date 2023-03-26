@@ -1,0 +1,1 @@
+A code example of React Hook Form for the tutorial: [Managing Forms with React Hook Form](https://claritydev.net/blog/managing-forms-with-react-hook-form).
