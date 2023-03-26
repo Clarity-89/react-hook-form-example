@@ -42,4 +42,5 @@ const Label = styled.label`
 
 const ErrorMessage = styled.div`
   color: red;
+  font-size: 14px;
 `;

@@ -86,6 +86,7 @@ const TextArea = styled.textarea`
 const Button = styled.button`
   border: 1px solid #d9d9d9;
   border-radius: 6px;
+  margin-right: auto;
   background-color: ${({ variant }) =>
     variant === "primary" ? "#3b82f6" : "white"};
   color: ${({ variant }) => (variant === "primary" ? "white" : "#213547")};
