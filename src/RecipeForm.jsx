@@ -5,7 +5,11 @@ import { Field } from "./Field.jsx";
 import { useForm } from "react-hook-form";
 
 export const RecipeForm = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const submitForm = (formData) => {
     console.log(formData);
@@ -16,14 +20,36 @@ export const RecipeForm = () => {
       <h1>New recipe</h1>
       <form onSubmit={handleSubmit(submitForm)}>
         <FieldSet label="Basics">
-          <Field label="Name">
-            <Input {...register("name")} type="text" id="name" />
+          <Field label="Name" error={errors.name}>
+            <Input
+              {...register("name", { required: "Recipe name is required" })}
+              type="text"
+              id="name"
+            />
           </Field>
-          <Field label="Description">
-            <TextArea {...register("description")} id="description" rows={10} />
+          <Field label="Description" error={errors.description}>
+            <TextArea
+              {...register("description", {
+                maxLength: {
+                  value: 100,
+                  message: "Description cannot be longer than 100 characters",
+                },
+              })}
+              id="description"
+              rows={10}
+            />
           </Field>
-          <Field label="Servings">
-            <Input {...register("amount")} type="number" id="amount" />
+          <Field label="Servings" error={errors.amount}>
+            <Input
+              {...register("amount", {
+                max: {
+                  value: 10,
+                  message: "Maximum number of servings is 10",
+                },
+              })}
+              type="number"
+              id="amount"
+            />
           </Field>
         </FieldSet>
 

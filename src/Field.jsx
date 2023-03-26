@@ -7,7 +7,7 @@ export const Field = ({ label, children, error }) => {
     <Container errorState={!!error}>
       {label && <Label htmlFor={id}>{label}</Label>}
       {children}
-      {error && <ErrorMessage role="alert">{error}</ErrorMessage>}
+      {!!error && <ErrorMessage role="alert">{error.message}</ErrorMessage>}
     </Container>
   );
 };
