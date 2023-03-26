@@ -1,6 +1,6 @@
 import { RecipeForm } from "./RecipeForm.jsx";
 import styled from "@emotion/styled";
-
+import "./App.css";
 function App() {
   return (
     <Container>
