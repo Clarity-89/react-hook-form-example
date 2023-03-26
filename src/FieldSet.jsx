@@ -25,5 +25,5 @@ const Wrapper = styled.div`
 const Legend = styled.legend`
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
