@@ -50,18 +50,14 @@ export const RecipeForm = () => {
               control={control}
               defaultValue={1}
               render={({ field: { ref, ...field } }) => (
-                <NumberInput
-                  {...field}
-                  type="number"
-                  id="amount"
-                  rules={{
-                    max: {
-                      value: 10,
-                      message: "Maximum number of servings is 10",
-                    },
-                  }}
-                />
+                <NumberInput {...field} type="number" id="amount" />
               )}
+              rules={{
+                max: {
+                  value: 10,
+                  message: "Maximum number of servings is 10",
+                },
+              }}
             />
           </Field>
         </FieldSet>
