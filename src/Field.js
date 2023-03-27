@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-export const Field = ({ label, children, error }) => {
-  const id = getChildId(children);
+export const Field = ({ label, children, htmlFor, error }) => {
+  const id = htmlFor || getChildId(children);
   return (
     <Container errorState={!!error}>
       {label && <Label htmlFor={id}>{label}</Label>}

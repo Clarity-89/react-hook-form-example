@@ -1,6 +1,6 @@
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { RecipeForm } from "./RecipeFormjs";
+import { RecipeForm } from "./RecipeForm.js";
 
 it("should render the basic fields", () => {
   render(<RecipeForm />);

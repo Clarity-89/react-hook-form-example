@@ -44,7 +44,7 @@ export const RecipeForm = () => {
               rows={10}
             />
           </Field>
-          <Field label="Servings" error={errors.amount}>
+          <Field label="Servings" error={errors.amount} htmlFor="amount">
             <Controller
               name="amount"
               control={control}
