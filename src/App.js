@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { RecipeForm } from "./RecipeForm.jsx";
+import { RecipeForm } from "./RecipeForm.js";
 import "./App.css";
 
 export default function App() {

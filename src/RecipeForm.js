@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { FieldSet } from "./FieldSet.jsx";
-import { Field } from "./Field.jsx";
-import { NumberInput } from "./NumberInput.jsx";
+import { FieldSet } from "./FieldSet.js";
+import { Field } from "./Field.js";
+import { NumberInput } from "./NumberInput.js";
 
 export const RecipeForm = () => {
   const {
