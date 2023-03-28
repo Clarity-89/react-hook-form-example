@@ -5,7 +5,11 @@ import "./App.css";
 export default function App() {
   return (
     <Container>
-      <RecipeForm />
+      <RecipeForm
+        saveData={(data) => {
+          console.log(data);
+        }}
+      />
     </Container>
   );
 }

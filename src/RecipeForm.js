@@ -4,12 +4,13 @@ import { FieldSet } from "./FieldSet.js";
 import { Field } from "./Field.js";
 import { NumberInput } from "./NumberInput.js";
 
-export const RecipeForm = () => {
+export const RecipeForm = ({ saveData }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    watch,
   } = useForm();
   const { fields, append, remove } = useFieldArray({
     name: "ingredients",
@@ -17,7 +18,7 @@ export const RecipeForm = () => {
   });
 
   const submitForm = (formData) => {
-    console.log(formData);
+    saveData(formData);
   };
 
   return (
@@ -48,7 +49,7 @@ export const RecipeForm = () => {
             <Controller
               name="amount"
               control={control}
-              defaultValue={1}
+              defaultValue={0}
               render={({ field: { ref, ...field } }) => (
                 <NumberInput {...field} type="number" id="amount" />
               )}
@@ -80,7 +81,11 @@ export const RecipeForm = () => {
                     id={`ingredients[${index}].amount`}
                   />
                 </Field>
-                <Button type="button" onClick={() => remove(index)}>
+                <Button
+                  type="button"
+                  onClick={() => remove(index)}
+                  aria-label={`Remove ingredient ${index}`}
+                >
                   &#8722;
                 </Button>
               </Row>
