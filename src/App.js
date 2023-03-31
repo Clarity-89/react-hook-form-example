@@ -5,7 +5,6 @@ import "./App.css";
 export default function App() {
   const submitForm = (data) => {
     const formData = new FormData();
-
     formData.append("files", data.picture[0]);
     data = { ...data, picture: data.picture[0].name };
     formData.append("recipe", JSON.stringify(data));

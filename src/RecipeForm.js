@@ -32,8 +32,14 @@ export const RecipeForm = ({ saveData }) => {
               id="name"
             />
           </Field>
-          <Field label="Picture">
-            <Input {...register("picture")} type="file" id="picture" />
+          <Field label="Picture" error={errors.picture}>
+            <Input
+              {...register("picture", {
+                required: "Recipe picture is required",
+              })}
+              type="file"
+              id="picture"
+            />
           </Field>
           <Field label="Description" error={errors.description}>
             <TextArea
@@ -47,22 +53,28 @@ export const RecipeForm = ({ saveData }) => {
               rows={10}
             />
           </Field>
-          <Field label="Servings" error={errors.amount} htmlFor="amount">
-            <Controller
-              name="amount"
-              control={control}
-              defaultValue={0}
-              render={({ field: { ref, ...field } }) => (
-                <NumberInput {...field} type="number" id="amount" />
-              )}
-              rules={{
-                max: {
-                  value: 10,
-                  message: "Maximum number of servings is 10",
-                },
-              }}
-            />
-          </Field>
+
+          {/*Alternative approach using controlled component*/}
+          {/*<Field label="Picture" error={errors.picture}>*/}
+          {/*  <Controller*/}
+          {/*    control={control}*/}
+          {/*    name={"picture"}*/}
+          {/*    rules={{ required: "Recipe picture is required" }}*/}
+          {/*    render={({ field: { value, onChange, ...field } }) => {*/}
+          {/*      return (*/}
+          {/*        <Input*/}
+          {/*          {...field}*/}
+          {/*          value={value?.fileName}*/}
+          {/*          onChange={(event) => {*/}
+          {/*            onChange(event.target.files[0]);*/}
+          {/*          }}*/}
+          {/*          type="file"*/}
+          {/*          id="picture"*/}
+          {/*        />*/}
+          {/*      );*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*</Field>*/}
         </FieldSet>
         <FieldSet label="Ingredients">
           {fields.map((field, index) => {
