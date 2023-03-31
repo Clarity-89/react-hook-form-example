@@ -10,7 +10,6 @@ export const RecipeForm = ({ saveData }) => {
     handleSubmit,
     formState: { errors },
     control,
-    watch,
   } = useForm();
   const { fields, append, remove } = useFieldArray({
     name: "ingredients",
@@ -32,6 +31,9 @@ export const RecipeForm = ({ saveData }) => {
               type="text"
               id="name"
             />
+          </Field>
+          <Field label="Picture">
+            <Input {...register("picture")} type="file" id="picture" />
           </Field>
           <Field label="Description" error={errors.description}>
             <TextArea
