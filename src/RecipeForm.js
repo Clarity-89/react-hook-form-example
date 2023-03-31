@@ -53,6 +53,22 @@ export const RecipeForm = ({ saveData }) => {
               rows={10}
             />
           </Field>
+          <Field label="Servings" error={errors.amount} htmlFor="amount">
+            <Controller
+              name="amount"
+              control={control}
+              defaultValue={0}
+              render={({ field: { ref, ...field } }) => (
+                <NumberInput {...field} type="number" id="amount" />
+              )}
+              rules={{
+                max: {
+                  value: 10,
+                  message: "Maximum number of servings is 10",
+                },
+              }}
+            />
+          </Field>
 
           {/*Alternative approach using controlled component*/}
           {/*<Field label="Picture" error={errors.picture}>*/}

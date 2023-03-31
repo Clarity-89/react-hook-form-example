@@ -39,7 +39,7 @@ it("should validate form fields", async () => {
   await user.type(screen.getByRole("spinbutton", { name: /servings/i }), "110");
 
   await user.click(screen.getByRole("button", { name: /save/i }));
-  expect(screen.getAllByRole("alert")).toHaveLength(3);
+  expect(screen.getAllByRole("alert")).toHaveLength(4);
   expect(mockSave).not.toBeCalled();
 });
 
@@ -85,12 +85,25 @@ it("should submit correct form data", async () => {
   );
   await user.type(screen.getByRole("textbox", { name: /amount/i }), "100 gr");
 
+  // Test image upload
+  const input = screen.getByLabelText("Picture");
+  const file = new File(["File contents"], "recipeImage.png", {
+    type: "image/png",
+  });
+
+  await userEvent.upload(input, file);
+  expect(input.files[0]).toBe(file);
+  expect(input.files.item(0)).toBe(file);
+  expect(input.files).toHaveLength(1);
+
   await user.click(screen.getByRole("button", { name: /save/i }));
 
-  expect(mockSave).toHaveBeenCalledWith({
-    name: "Test recipe",
-    description: "Delicious recipe",
-    amount: 4,
-    ingredients: [{ name: "Flour", amount: "100 gr" }],
-  });
+  expect(mockSave).toHaveBeenCalledWith(
+    expect.objectContaining({
+      name: "Test recipe",
+      description: "Delicious recipe",
+      amount: 4,
+      ingredients: [{ name: "Flour", amount: "100 gr" }],
+    })
+  );
 });
