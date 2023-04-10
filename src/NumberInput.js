@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 
 export const NumberInput = ({ value, onChange, ...rest }) => {
   const handleChange = (e) => {
-    onChange(Number(e.target.value));
+    const value = e.target.valueAsNumber || 0;
+    onChange(value);
   };
 
   return (

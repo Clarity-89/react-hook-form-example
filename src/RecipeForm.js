@@ -59,7 +59,7 @@ export const RecipeForm = ({ saveData }) => {
               control={control}
               defaultValue={0}
               render={({ field: { ref, ...field } }) => (
-                <NumberInput {...field} type="number" id="amount" />
+                <NumberInput {...field} id="amount" />
               )}
               rules={{
                 max: {
