@@ -12,8 +12,10 @@ function setup(jsx: React.JSX.Element) {
   };
 }
 
+const mockSave = jest.fn();
+
 it("should render the basic fields", () => {
-  render(<RecipeForm saveData={() => {}} />);
+  render(<RecipeForm saveData={mockSave} />);
   expect(
     screen.getByRole("heading", { name: "New recipe" }),
   ).toBeInTheDocument();
@@ -31,7 +33,6 @@ it("should render the basic fields", () => {
 });
 
 it("should validate form fields", async () => {
-  const mockSave = jest.fn();
   const { user } = setup(<RecipeForm saveData={mockSave} />);
   await user.type(
     screen.getByRole("textbox", { name: /description/i }),
@@ -45,7 +46,7 @@ it("should validate form fields", async () => {
 });
 
 it("should handle ingredient fields", async () => {
-  const { user } = setup(<RecipeForm />);
+  const { user } = setup(<RecipeForm saveData={mockSave} />);
   const addButton = screen.getByRole("button", { name: /add ingredient/i });
 
   await user.click(addButton);
@@ -87,14 +88,14 @@ it("should submit correct form data", async () => {
   await user.type(screen.getByRole("textbox", { name: /amount/i }), "100 gr");
 
   // Test image upload
-  const input = screen.getByLabelText("Picture");
+  const input: HTMLInputElement = screen.getByLabelText("Picture");
   const file = new File(["File contents"], "recipeImage.png", {
     type: "image/png",
   });
 
   await userEvent.upload(input, file);
-  expect(input.files[0]).toBe(file);
-  expect(input.files.item(0)).toBe(file);
+  expect(input.files?.[0]).toBe(file);
+  expect(input.files?.item(0)).toBe(file);
   expect(input.files).toHaveLength(1);
 
   await user.click(screen.getByRole("button", { name: /save/i }));
