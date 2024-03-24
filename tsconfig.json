@@ -8,6 +8,7 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "rootDir": "src",
     "noImplicitReturns": true,
     "noImplicitThis": true,

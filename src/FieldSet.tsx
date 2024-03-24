@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
+import React from "react";
 
-export const FieldSet = ({ label, children }) => {
+interface FieldSetProps {
+  label?: string;
+  children: React.ReactNode;
+}
+export const FieldSet = ({ label, children }: FieldSetProps) => {
   return (
     <Container>
       {label && <Legend>{label}</Legend>}

@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { FieldSet } from "./FieldSet.js";
-import { Field } from "./Field.js";
-import { NumberInput } from "./NumberInput.js";
+
+import { Field } from "./Field";
+import { FieldSet } from "./FieldSet";
+import { NumberInput } from "./NumberInput";
 import { Recipe } from "./types";
 
 interface Props {
@@ -103,14 +104,14 @@ export const RecipeForm = ({ saveData }: Props) => {
                 <Field label="Name">
                   <Input
                     type="text"
-                    {...register(`ingredients[${index}].name`)}
+                    {...register(`ingredients.${index}.name`)}
                     id={`ingredients[${index}].name`}
                   />
                 </Field>
                 <Field label="Amount">
                   <Input
                     type="text"
-                    {...register(`ingredients[${index}].amount`)}
+                    {...register(`ingredients.${index}.amount`)}
                     defaultValue={field.amount}
                     id={`ingredients[${index}].amount`}
                   />
@@ -160,7 +161,7 @@ const TextArea = styled.textarea`
   border-radius: 6px;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ variant?: "primary" | "secondary" }>`
   font-size: 14px;
   cursor: pointer;
   padding: 0.6em 1.2em;

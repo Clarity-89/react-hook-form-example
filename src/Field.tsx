@@ -1,7 +1,14 @@
-import React from "react";
 import styled from "@emotion/styled";
+import React from "react";
+import { FieldError } from "react-hook-form";
 
-export const Field = ({ label, children, htmlFor, error }) => {
+interface FieldProps {
+  label?: string;
+  children: React.ReactElement;
+  htmlFor?: string;
+  error?: FieldError;
+}
+export const Field = ({ label, children, htmlFor, error }: FieldProps) => {
   const id = htmlFor || getChildId(children);
   return (
     <Container errorState={!!error}>
@@ -12,7 +19,7 @@ export const Field = ({ label, children, htmlFor, error }) => {
   );
 };
 
-const getChildId = (children) => {
+const getChildId = (children: FieldProps["children"]) => {
   const child = React.Children.only(children);
 
   if ("id" in child?.props) {
@@ -20,7 +27,7 @@ const getChildId = (children) => {
   }
 };
 
-const Container = styled.div`
+const Container = styled.div<{ errorState: boolean }>`
   display: flex;
   flex-direction: column;
   align-content: flex-start;
