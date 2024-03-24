@@ -3,20 +3,24 @@ import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { FieldSet } from "./FieldSet.js";
 import { Field } from "./Field.js";
 import { NumberInput } from "./NumberInput.js";
+import { Recipe } from "./types";
 
-export const RecipeForm = ({ saveData }) => {
+interface Props {
+  saveData: (data: Recipe) => void;
+}
+export const RecipeForm = ({ saveData }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm();
+  } = useForm<Recipe>();
   const { fields, append, remove } = useFieldArray({
     name: "ingredients",
     control,
   });
 
-  const submitForm = (formData) => {
+  const submitForm = (formData: Recipe) => {
     saveData(formData);
   };
 
