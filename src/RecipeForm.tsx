@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 
 import { Field } from "./Field";
 import { FieldSet } from "./FieldSet";
-import { NumberInput } from "./NumberInput";
 import { Recipe } from "./types";
 
 interface Props {
@@ -58,20 +57,17 @@ export const RecipeForm = ({ saveData }: Props) => {
               rows={10}
             />
           </Field>
-          <Field label="Servings" error={errors.amount} htmlFor="amount">
-            <Controller
-              name="amount"
-              control={control}
-              defaultValue={0}
-              render={({ field: { ref, ...field } }) => (
-                <NumberInput {...field} id="amount" />
-              )}
-              rules={{
+          <Field label="Servings" error={errors.amount}>
+            <Input
+              {...register("amount", {
+                valueAsNumber: true,
                 max: {
                   value: 10,
                   message: "Maximum number of servings is 10",
                 },
-              }}
+              })}
+              type="number"
+              id="amount"
             />
           </Field>
 

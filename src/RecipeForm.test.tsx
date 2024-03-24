@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import { RecipeForm } from "./RecipeForm.js";
+import { RecipeForm } from "./RecipeForm";
+import React from "react";
 
 // setup userEvent
-function setup(jsx) {
+function setup(jsx: React.JSX.Element) {
   return {
     user: userEvent.setup(),
     ...render(jsx),
@@ -12,19 +13,19 @@ function setup(jsx) {
 }
 
 it("should render the basic fields", () => {
-  render(<RecipeForm />);
+  render(<RecipeForm saveData={() => {}} />);
   expect(
-    screen.getByRole("heading", { name: "New recipe" })
+    screen.getByRole("heading", { name: "New recipe" }),
   ).toBeInTheDocument();
   expect(screen.getByRole("textbox", { name: /name/i })).toBeInTheDocument();
   expect(
-    screen.getByRole("textbox", { name: /description/i })
+    screen.getByRole("textbox", { name: /description/i }),
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("spinbutton", { name: /servings/i })
+    screen.getByRole("spinbutton", { name: /servings/i }),
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("button", { name: /add ingredient/i })
+    screen.getByRole("button", { name: /add ingredient/i }),
   ).toBeInTheDocument();
   expect(screen.getByRole("button", { name: /save/i })).toBeInTheDocument();
 });
@@ -34,7 +35,7 @@ it("should validate form fields", async () => {
   const { user } = setup(<RecipeForm saveData={mockSave} />);
   await user.type(
     screen.getByRole("textbox", { name: /description/i }),
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   );
   await user.type(screen.getByRole("spinbutton", { name: /servings/i }), "110");
 
@@ -57,7 +58,7 @@ it("should handle ingredient fields", async () => {
   expect(screen.getAllByRole("textbox", { name: /amount/i })).toHaveLength(2);
 
   await user.click(
-    screen.getByRole("button", { name: /remove ingredient 1/i })
+    screen.getByRole("button", { name: /remove ingredient 1/i }),
   );
   expect(screen.getAllByRole("textbox", { name: /name/i })).toHaveLength(2);
   expect(screen.getAllByRole("textbox", { name: /amount/i })).toHaveLength(1);
@@ -69,11 +70,11 @@ it("should submit correct form data", async () => {
 
   await user.type(
     screen.getByRole("textbox", { name: /name/i }),
-    "Test recipe"
+    "Test recipe",
   );
   await user.type(
     screen.getByRole("textbox", { name: /description/i }),
-    "Delicious recipe"
+    "Delicious recipe",
   );
   await user.type(screen.getByRole("spinbutton", { name: /servings/i }), "4");
 
@@ -81,7 +82,7 @@ it("should submit correct form data", async () => {
 
   await user.type(
     screen.getAllByRole("textbox", { name: /name/i })[1],
-    "Flour"
+    "Flour",
   );
   await user.type(screen.getByRole("textbox", { name: /amount/i }), "100 gr");
 
@@ -104,6 +105,6 @@ it("should submit correct form data", async () => {
       description: "Delicious recipe",
       amount: 4,
       ingredients: [{ name: "Flour", amount: "100 gr" }],
-    })
+    }),
   );
 });
