@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
-import { RecipeForm } from "./RecipeForm";
 import React from "react";
+
+import { RecipeForm } from "./RecipeForm";
 
 // setup userEvent
 function setup(jsx: React.JSX.Element) {
